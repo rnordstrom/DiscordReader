@@ -1,7 +1,7 @@
 {
   "name": "DiscordReader",
   "description": "Blank Process",
-  "main": "Main.xaml",
+  "main": "Workflows\\Main.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[2.20.1]",
     "UiPath.Mail.Activities": "[1.18.2]",
@@ -50,8 +50,8 @@
   "expressionLanguage": "VisualBasic",
   "entryPoints": [
     {
-      "filePath": "Main.xaml",
-      "uniqueId": "a93202e0-cb42-4107-8409-bb6c0baaaf4c",
+      "filePath": "Workflows\\Main.xaml",
+      "uniqueId": "d4aec251-89d7-4f82-bb47-391b63fdea8f",
       "input": [],
       "output": []
     }

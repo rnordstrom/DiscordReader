@@ -1,11 +1,11 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ScrapeMessages" this:ScrapeMessages.in_PageCount="20" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:uasa="clr-namespace:UiPath.Activities.System.Arrays;assembly=UiPath.System.Activities" xmlns:ue="clr-namespace:UiPath.Excel;assembly=UiPath.Excel.Activities" xmlns:ueab="clr-namespace:UiPath.Excel.Activities.Business;assembly=UiPath.Excel.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ScrapeMessages" this:ScrapeMessages.in_PageCount="20" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:uasa="clr-namespace:UiPath.Activities.System.Arrays;assembly=UiPath.System.Activities" xmlns:ue="clr-namespace:UiPath.Excel;assembly=UiPath.Excel.Activities" xmlns:ueab="clr-namespace:UiPath.Excel.Activities.Business;assembly=UiPath.Excel.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_PageCount" Type="InArgument(x:Int32)" />
   </x:Members>
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1848,3837</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1234,4624</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ScrapeMessages_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -54,6 +54,11 @@
       <x:String>UiPath.Platform.Triggers.Scope</x:String>
       <x:String>UiPath.UIAutomationNext.Activities.Triggers</x:String>
       <x:String>UiPath.Activities.System.Arrays</x:String>
+      <x:String>UiPath.Shared.Activities.Business</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities.Models</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -111,15 +116,16 @@
       <AssemblyReference>System.Data.SqlClient</AssemblyReference>
       <AssemblyReference>System.Collections</AssemblyReference>
       <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Forms</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Core</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.ViewModels</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="ScrapeMessages" sap:VirtualizedContainerService.HintSize="860,3772" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="ScrapeMessages" sap:VirtualizedContainerService.HintSize="860,4559" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="scg:List(sd:DataTable)" Name="MessageTables">
-        <Variable.Default>
-          <VisualBasicValue x:TypeArguments="scg:List(sd:DataTable)" ExpressionText="New List(Of DataTable)" />
-        </Variable.Default>
-      </Variable>
+      <Variable x:TypeArguments="scg:List(sd:DataTable)" Default="[New List(Of DataTable)]" Name="MessageTables" />
       <Variable x:TypeArguments="x:Int32" Name="PageCounter">
         <Variable.Default>
           <Literal x:TypeArguments="x:Int32" />
@@ -131,23 +137,24 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <uix:NApplicationCard AttachMode="SingleWindow" CloseMode="Never" DisplayName="Use Browser Edge: • Discord Main Page" sap:VirtualizedContainerService.HintSize="798,3661" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" OpenMode="IfNotOpen" ScopeGuid="6a9c2bd6-c6af-48b8-9ec1-dca80fbdfced" Version="V2">
+    <uix:NApplicationCard AttachMode="SingleWindow" CloseMode="Never" DisplayName="Use Browser Edge: • Discord Main Page" sap:VirtualizedContainerService.HintSize="798,4448" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" OpenMode="IfNotOpen" ScopeGuid="6a9c2bd6-c6af-48b8-9ec1-dca80fbdfced" Version="V2">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="764,3444" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="764,4231" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Boolean" Name="HasUnread" />
               <Variable x:TypeArguments="sd:DataTable" Default="[New System.Data.DataTable]" Name="TempMessageTable" />
+              <Variable x:TypeArguments="sd:DataTable" Name="FormattedMessageTable" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:RetryScope DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="702,443" sap2010:WorkflowViewState.IdRef="RetryScope_2" NumberOfRetries="6">
+            <ui:RetryScope DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="702,523" sap2010:WorkflowViewState.IdRef="RetryScope_2" NumberOfRetries="6">
               <ui:RetryScope.ActivityBody>
                 <ActivityAction>
                   <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="450,268" sap2010:WorkflowViewState.IdRef="Sequence_7">
@@ -172,29 +179,56 @@
               <uix:NClick.Target>
                 <uix:TargetAnchorable BrowserURL="https://discord.com/channels/470825093568921610/508155505034788864" CvTextArgument="general" CvType="Text" DesignTimeRectangle="122, 503, 170, 20" DesignTimeScaleFactor="1" ElementType="Text" FriendlyName="'general'" FullSelectorArgument="&lt;webctrl aaname='general' parentid='channels' tag='DIV' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='general' parentid='channels' tag='DIV' type='' class='name-28HaxV channelName-3KPsGw overflow-1wOqNV' check:innerText='general' /&gt;" Guid="8fdeebf6-6f18-4b5b-8d60-ac1b2335d1f2" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAK4AAAAYCAYAAABjn8aGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANOSURBVHhe7ZnfSyJRFMf3/4k1DAWpTLFVSndlaUBDS1jTxcLMhsS1zXITdmJEE9MEowdh/8/vnju/HMuoR0fPw+fhzrk/Hvzcc8+9flr57AbDOA0Wl3EkLC7jSFhcxpGwuIwjWRBx86g9/YNSis2IMYsIi8s4EhaXcSTviOtB9LyHSio4IzZPsLjLxrS4vhQKzWf0SYL+6Bn16x66owHO4oa4axIOrwf0jeLUp9tSkAx6jPG6PLUj2xzDAeTEtPSru6eodcbGGmMol3lsusy4OUcGstFHOREyBhE9VqE86uv2hyPUSyl4rXlZ3GXDJu4G0k2SonWD76Ft+EiwOomiluNGfAfZO4p3FaR3RfwHin9JrsdbfNPE0+XRhD9OIBBKINek+EhF0hRzq4wmSa9eFRDxbyOy/xsNWqP7K2OsMZmjUcog4JcQCW9gJXwBhWStHNG8/hhJ3EaX+tUzFLONY3GXB5u4MRQ60z9+sk4S1fN6++sNOk8D5LbM/oT3FI2nMeQ90dbl6ciJSVwbM0IhrLejMmVi9QKbZpxwZ9uUQUl+rW3MUUlZcQuXmdkFcRTv7WuxuMvGjIxbRZSyoZVxzyUt7vvZ04/pGdRSYvwMecJVKJa423rGfjFWh7KyNuZtAVe/FFBsDtAxywWBualY3KXDJq4HofKIjv5nvYZ9UX/q4tqO/Vd8UNxrU7ZZvCHg3q1WGqh/qkjHY/D5UzijjMviLi8TcbVjv41D73QHC+3YH1N2NetKgQe+dfPy9Z64RqkwJPnta7iC8PnM9mwBQyXaUPdVhMxvLhL3gcVdZl6IO0YjL1FGo1LBwLtmdjYuZ6MB5H3RR4J0Ll4desgGRfx9cc3LWV+9gWS/4Kllo+6dLaCW7cXrhkTZVhtDG0DMY4mbgTykmvcqj4DPXgszi8pEXBddzlpCTILksSBhchFDhrUY0peT57D+Qw/F5MczrkDUqpWW8RxGdO5+Q1qfflJ7lTldcWRtT2yVgxRyYhNZ4lKZcyI2kf0bs8hY4gZOBtPHscAlabd3PoKZecMS151p28oAvUyI7N9CoUuavMfHLzNfTEoFOm4jR7Z/p4hutwf5YGdqAMPMAzZxGcY5sLiMI2FxGUfC4jIOxI3/Alr5wg4BdYIAAAAASUVORK5CYII=" InformativeScreenshot="4889986150ef5b8333bfc317249977fe.png" ScopeSelectorArgument="&lt;html app='msedge.exe' title='Discord | #welcome | Spice &amp;amp; Wolf' /&gt;" SearchSteps="FuzzySelector, Image, CV" Version="V2" Visibility="Interactive">
                   <uix:TargetAnchorable.Anchors>
-                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
                       <uix:Target CvTextArgument="ESSENTIALS" CvType="Text" DesignTimeRectangle="96, 476, 208, 16" ElementType="Text" FriendlyName="'Essentials'" FullSelectorArgument="&lt;webctrl aaname='Essentials' parentid='channels' tag='DIV' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Essentials' parentid='channels' tag='DIV' type='' class='overflow-1wOqNV' check:innerText='ESSENTIALS' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAANQAAAAUCAYAAAD1NhOsAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALBSURBVHhe7ZhdaxpBFIb7f0ISEhSWahOxJLSVlpCAgoJQgsUENW2JsaZsmtaCwVKVNh+geBHI/3x7nB13R00m27iX78UDO+fsjA7Ms2dmni0tr4EQEg0UipAIoVCERAiFIiRCKBQhEUKhCImQQKitBtrDO1zO0MzrfKqEevfWiw9u0T4tIbnyeC7nTo+n6DaQNnKtD6+8ccbkOxIboLw1eZ7pq+ggN+mvx/L7L++h0pf44DcKcTOeQbkrcbdkxAxs8yMkJHNCufsv4bwIiK+P894i7btlbI7jr8uoS7tTe/dITi/63je8NcZ0njtBbryAb0QQR/8PU6j1hO6Tx1FPxvyc1+0EVif9Z4XK/kB/MELnr4h6YIhqFco+B0LCYhfKiekX36M+uMN5KeV3XFqPqUVtz90nVAprZvXqddCUhd7/UvT6mkLpMSYytGsZI3afUAkUWp40bz6NcNk5RtLP2YSyz4GQsNi3fP7iiyF9eOXFrq/gnjSwt+VVGXvOqEI+gSy+ELtSVSRe2RaBFxEqXsX58Bb1rIyzcYzWcIRKZvK+TSj7HAgJy5xQ/pnpHladPezsN1C/kK+/vNs+DBb4Q7n5KhIQ5BLyLOeXi49ILiBU8kCkuGmjoCphFhXp0z/Vlc8qlIdtfoSEIaRQMTgbxnZI2rkzWZy/jrFpzYUVStqOVJfxtuvnnycKpS8jZA5TDOR8praY9gplm8P0u4Q8TLhLicxXdGUrdV4reof2dBnNa/n6n+TtORlXLXrbpYQhm7/teopQets41S9ehiuSusWEtLVQ36tT81PnxEfmQEhY7GcowatY8gXfbcDtG9fKZ1VsqxtAW04vemM8hZZgVqillSyOVJX5X6Fi2DmV3zfHUuhLCnU5oYWa/S+qYtnnQEhYAqEIIQtDoQiJEApFSIRQKEIihEIREiEUipDIWMM/VsGPXMjZkGAAAAAASUVORK5CYII=" SearchSteps="FuzzySelector, Image, CV" />
                     </scg:List>
                   </uix:TargetAnchorable.Anchors>
                 </uix:TargetAnchorable>
               </uix:NClick.Target>
             </uix:NClick>
-            <ui:InterruptibleWhile CurrentIndex="{x:Null}" DisplayName="While" sap:VirtualizedContainerService.HintSize="702,1068" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
+            <ui:BuildDataTable DataTable="[FormattedMessageTable]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="702,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Username&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Message&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Username /&gt;&#xA;  &lt;/TableName&gt;&#xA;&lt;/NewDataSet&gt;" />
+            <ui:InterruptibleWhile CurrentIndex="{x:Null}" Condition="[PageCounter &lt; in_PageCount]" DisplayName="While" sap:VirtualizedContainerService.HintSize="702,1673" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
               <ui:InterruptibleWhile.Body>
-                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="496,902" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="546,1507" sap2010:WorkflowViewState.IdRef="Sequence_10">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[TempMessageTable]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' Name='Username' ReferenceName='Column0'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' Name='Message' ReferenceName='Column1'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' Name='Timestamp' ReferenceName='Column2'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' /&gt;&lt;/row&gt;&lt;column exact='1' name='Column0' attr='fulltext'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='h3' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column1' attr='fulltext'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column2' attr='fulltext'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='h3' idx='1' /&gt;&lt;webctrl tag='span' idx='2' /&gt;&lt;webctrl tag='time' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="434,157" sap2010:WorkflowViewState.IdRef="NExtractData_1" LimitExtractionTo="None" MaximumResults="0" ScopeIdentifier="6a9c2bd6-c6af-48b8-9ec1-dca80fbdfced" Version="V3">
+                  <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[TempMessageTable]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='MessageData'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='Column0' attr='fulltext'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="484,157" sap2010:WorkflowViewState.IdRef="NExtractData_1" LimitExtractionTo="None" MaximumResults="0" ScopeIdentifier="6a9c2bd6-c6af-48b8-9ec1-dca80fbdfced" Version="V3">
                     <uix:NExtractData.Target>
-                      <uix:TargetAnchorable DesignTimeRectangle="320, -10323, 893, 12207" DesignTimeScaleFactor="1" FriendlyName="'Use the'" FullSelectorArgument="&lt;webctrl tag='OL' /&gt;" Guid="a460fdf6-4431-454a-8080-f1c20b7b911d" InformativeScreenshot="f045e3e7a404639369c2c2d3d2f6a5e4.png" ScopeSelectorArgument="&lt;html app='msedge.exe' title='(2) Discord | #general | Spice &amp;amp; Wolf' /&gt;" SearchSteps="Selector" Version="V2" Visibility="Interactive" />
+                      <uix:TargetAnchorable DesignTimeRectangle="320, -4055, 651, 18379" DesignTimeScaleFactor="1" FriendlyName="'Use the'" FullSelectorArgument="&lt;webctrl tag='OL' /&gt;" Guid="90bd18e3-1c0e-48f3-9aac-ef667ca84caf" InformativeScreenshot="4332b4409690ff0ac9c6d097cf70e904.png" ScopeSelectorArgument="&lt;html app='msedge.exe' title='• Discord | #general | Spice &amp;amp; Wolf' /&gt;" SearchSteps="Selector" Version="V2" Visibility="Interactive" />
                     </uix:NExtractData.Target>
                   </uix:NExtractData>
-                  <uix:NKeyboardShortcuts ActivateBefore="True" ClickBeforeMode="None" DisplayName="Keyboard Shortcuts" sap:VirtualizedContainerService.HintSize="434,179" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_1" Shortcuts="[d(hk)][k(pgup)][u(hk)]" Version="V3" />
-                  <uasa:AppendItemToList x:TypeArguments="sd:DataTable" ItemIndex="{x:Null}" DisplayName="Append Item to List" sap:VirtualizedContainerService.HintSize="434,133" sap2010:WorkflowViewState.IdRef="AppendItemToList`1_1" ItemToAppend="[TempMessageTable.Copy]" List="[MessageTables]" />
-                  <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_1">
+                  <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[TempMessageTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="484,565" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
+                    <ui:ForEachRow.Body>
+                      <ActivityAction x:TypeArguments="sd:DataRow">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="sd:DataRow" Name="TempRow" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="450,450" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                          <Sequence.Variables>
+                            <Variable x:TypeArguments="s:String[]" Name="FormattedUserMessage" />
+                          </Sequence.Variables>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="ParseMessageData.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="388,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Workflows\ParseMessageData.xaml">
+                            <ui:InvokeWorkflowFile.Arguments>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_MessageData">[TempRow.Item("MessageData").ToString]</InArgument>
+                              <OutArgument x:TypeArguments="s:String[]" x:Key="out_FormattedUserMessage">[FormattedUserMessage]</OutArgument>
+                            </ui:InvokeWorkflowFile.Arguments>
+                          </ui:InvokeWorkflowFile>
+                          <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[FormattedUserMessage]" DataTable="[FormattedMessageTable]" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="388,186" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:ForEachRow.Body>
+                  </ui:ForEachRow>
+                  <uasa:AppendItemToList x:TypeArguments="sd:DataTable" ItemIndex="{x:Null}" DisplayName="Append Item to List" sap:VirtualizedContainerService.HintSize="484,133" sap2010:WorkflowViewState.IdRef="AppendItemToList`1_1" ItemToAppend="[FormattedMessageTable]" List="[MessageTables]" />
+                  <uix:NKeyboardShortcuts ActivateBefore="True" ClickBeforeMode="None" DisplayName="Keyboard Shortcuts" sap:VirtualizedContainerService.HintSize="484,179" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_3" Shortcuts="[d(hk)][k(pgup)][u(hk)]" Version="V3" />
+                  <Assign sap:VirtualizedContainerService.HintSize="484,82" sap2010:WorkflowViewState.IdRef="Assign_1">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:Int32">[PageCounter]</OutArgument>
                     </Assign.To>
@@ -202,12 +236,9 @@
                       <InArgument x:TypeArguments="x:Int32">[PageCounter + 1]</InArgument>
                     </Assign.Value>
                   </Assign>
-                  <ui:ClearDataTable DataTable="[TempMessageTable]" DisplayName="Clear Data Table" sap:VirtualizedContainerService.HintSize="434,80" sap2010:WorkflowViewState.IdRef="ClearDataTable_1" />
+                  <ui:ClearDataTable DataTable="[TempMessageTable]" DisplayName="Clear Data Table" sap:VirtualizedContainerService.HintSize="484,80" sap2010:WorkflowViewState.IdRef="ClearDataTable_1" />
                 </Sequence>
               </ui:InterruptibleWhile.Body>
-              <ui:InterruptibleWhile.Condition>
-                <VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="PageCounter &lt; in_PageCount" />
-              </ui:InterruptibleWhile.Condition>
             </ui:InterruptibleWhile>
             <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" ExistingProcessAction="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" MacroSettings="{x:Null}" ProcessMode="{x:Null}" ShowExcelWindow="{x:Null}" DisplayName="Excel Process Scope" sap:VirtualizedContainerService.HintSize="702,1543" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_1">
               <ueab:ExcelProcessScopeX.Body>
