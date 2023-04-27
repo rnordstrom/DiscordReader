@@ -40,9 +40,7 @@
       "privateWorkflows": []
     },
     "processOptions": {
-      "ignoredFiles": [
-        "UserMessages.xlsx"
-      ]
+      "ignoredFiles": []
     },
     "fileInfoCollection": [],
     "modernBehavior": true
