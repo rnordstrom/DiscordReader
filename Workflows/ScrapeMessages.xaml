@@ -1,11 +1,12 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ScrapeMessages" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ue="clr-namespace:UiPath.Excel;assembly=UiPath.Excel.Activities" xmlns:ueab="clr-namespace:UiPath.Excel.Activities.Business;assembly=UiPath.Excel.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ScrapeMessages" this:ScrapeMessages.in_NumPages="5" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ue="clr-namespace:UiPath.Excel;assembly=UiPath.Excel.Activities" xmlns:ueab="clr-namespace:UiPath.Excel.Activities.Business;assembly=UiPath.Excel.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="out_ExcelPath" Type="OutArgument(x:String)" />
+    <x:Property Name="in_NumPages" Type="InArgument(x:Int32)" />
   </x:Members>
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1848,3100</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1848,4368</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ScrapeMessages_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -137,21 +138,28 @@
       <AssemblyReference>System.Linq.Queryable</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="ScrapeMessages" sap:VirtualizedContainerService.HintSize="784,3035" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="ScrapeMessages" sap:VirtualizedContainerService.HintSize="784,4303" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Int32" Name="PageCount">
+        <Variable.Default>
+          <Literal x:TypeArguments="x:Int32" />
+        </Variable.Default>
+      </Variable>
+    </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <uix:NApplicationCard AttachMode="SingleWindow" CloseMode="Always" DisplayName="Use Browser Edge: • Discord Main Page" sap:VirtualizedContainerService.HintSize="722,2924" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" OpenMode="IfNotOpen" ScopeGuid="6a9c2bd6-c6af-48b8-9ec1-dca80fbdfced" Version="V2">
+    <uix:NApplicationCard AttachMode="SingleWindow" CloseMode="Always" DisplayName="Use Browser Edge: • Discord Main Page" sap:VirtualizedContainerService.HintSize="722,4192" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" OpenMode="IfNotOpen" ScopeGuid="6a9c2bd6-c6af-48b8-9ec1-dca80fbdfced" Version="V2">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="688,2707" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="688,3975" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <Sequence.Variables>
-              <Variable x:TypeArguments="sd:DataTable" Default="[New System.Data.DataTable]" Name="TempMessageTable" />
+              <Variable x:TypeArguments="sd:DataTable" Default="[New System.Data.DataTable]" Name="MessageTable" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -194,7 +202,7 @@
               <uix:NTypeInto.Target>
                 <uix:TargetAnchorable BrowserURL="https://discord.com/channels/470825093568921610/470825093996609546" CvElementArea="988, 90, 146, 28" CvTextArea="994, 97, 43, 13" CvTextArgument="Search" CvType="InputBox" DesignTimeRectangle="991, 92, 116, 24" DesignTimeScaleFactor="1" FriendlyName="'Search'" FullSelectorArgument="&lt;webctrl class='DraftEditor-root' parentid='app-mount' tag='DIV' /&gt;" FuzzySelectorArgument="&lt;webctrl class='DraftEditor-root' parentid='app-mount' tag='DIV' type='' aaname='' check:innerText='Search' /&gt;" Guid="e47c3abd-d290-4a96-ab36-517f0de930ca" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAHgAAAAcCAYAAACqAXueAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAL2SURBVGhD7ZrtT9pQFIf5S+ZgAwcGF0Qnk2UvOoOvwwiGMEeMc4lOB1mJIwMTgzENI2ogAQMEP/CB//O3c1vQwlp0JJp4cz48SXvvKSV9es65lNp8/gAYeWHBkqMJ9r6cxHPnC4w8fYYnIw5GImxCLouVF5vIXLMJRg5snL1yYzMbZOSBBUsOC5acwYKnEkgXW6g22xoXag7hKZd57D0SztL5swnTOWYw1oLtG0hdtqEmN+AbJamjQYSSFVQvT7HsNom/R1jw8FgLnlGgNkuIjRnH/Zic8Rv2HwYWPDzWgt3byDUog/cX4DCbF4zHkTrvlPBaBelosDPngi96CpUqwL9zujB1P4EtVT82/YnG7X4s/yjhgs6pt4MMQp2bSxN8pGAzf6V/XuUMm28evlU8Rgb2YPdqDkVxwWt1nBxlEJufvpFtX8FBiUT9pBLudME5SxnfuMLuBzHvR1gpYGcpCKfTg8C3EqqNM0Q6pV0T1qgjtUafZ/dQjAOBvTqV/wIiE6IdzCGWb6GcjcN5HV/BwRLFO6cROaIbQ/0Ob/e7MJYMXmQJSIBvPo4tpZNdf5II2Gl88RjlZgFhsd2J/XjYgrr3rvd4gT2BTLOOnRl9X89IY8mlfl9r4/jz+M2Y3UXyDfHGEr1eQPVcQaC7z1hyu2Ajr5I46ZZUcZFFueznd1yLdbzeRkqt44LE6XN9gnt6qrgBKPvfdvd7YcHDYy14bA2x6FzfuBDRRmadtkUG144RMmTwNVr/biH3dQWTY6JXmmRwj2CzDNZLt2k8C74zloLddBHLTZL0ZQFe48+kGpVlrZcuYJd6cPEwrv2MckxsYOekgtSqR8t0lYTuznrg6B43UHB/Dw4ikqU+m9+G2yyeBd+ZASXaBe+iglzp5kFHuXja+6BDrKK7D0IoY9VfCfi0jPYjpFRQFj2bFlPpaPKWDCb6V9F5Be+Nq2gWPBT/14OZRwcLlhwWLDn8h7/k8Cs7ksMv3UkOvzYrOfziu+SwYKkJ4C/yqycHbUaAqgAAAABJRU5ErkJggg==" InformativeScreenshot="901c34df62c59fa3a591e251a34851ba.png" ScopeSelectorArgument="&lt;html app='msedge.exe' title='Discord | #general | Spice &amp;amp; Wolf' /&gt;" SearchSteps="FuzzySelector, Image, CV" Version="V2" Visibility="Interactive">
                   <uix:TargetAnchorable.Anchors>
-                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
                       <uix:Target CvElementArea="988, 90, 146, 28" CvTextArea="994, 97, 43, 13" CvTextArgument="Search" CvType="InputBox" DesignTimeRectangle="1107, 92, 24, 24" ElementType="Button" FriendlyName="'DIV'" FullSelectorArgument="&lt;webctrl aria-label='Clear search' aria-role='button' tag='DIV' /&gt;" FuzzySelectorArgument="&lt;webctrl aria-label='Clear search' aria-role='button' tag='DIV' type='' class='icon-tZMHgY iconLayout-SqV3nb small-1hw8IT' aaname='' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEaSURBVEhLvZaxagJBEED9EhU1YGNC0OJAsEgrVqlSWFmkSmVhY6ldutil9T8nvIOBJZns7OI5xeO4nbt5u3Oz3Pae541EEi/sD0ZyTwbDsUwepjJ7WsQIFcRIw4TASkOFrDJUCMXC2eNc3ra7lvePvaw3r+ZzHkVCJJfvq5w/v+RwPLXoPROx3vkPV6gyruk4IoSQjntkhcvVSyvjasWREq8pb1ZIIhJaMYWVU2IrZpEV0hxeMiZVU9askNl7yUqeSbnpGwIVoBJWzCIrBBKyAqv9ETGhmq3hCtP21w2vZUQGv7dMDlcISLUbEahcx2ukRUKPGmknQlCp9z07E0Kum5VOhSWECsN/wKFHjLBD1J9jYnpIjSBY2MgPoc2PDxyUwhgAAAAASUVORK5CYII=" SearchSteps="FuzzySelector, Image, CV" />
                     </scg:List>
                   </uix:TargetAnchorable.Anchors>
@@ -202,41 +210,91 @@
               </uix:NTypeInto.Target>
             </uix:NTypeInto>
             <uix:NKeyboardShortcuts ActivateBefore="True" ClickBeforeMode="None" DisplayName="Keyboard Shortcuts" sap:VirtualizedContainerService.HintSize="626,179" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_4" Shortcuts="[d(hk)][k(enter)][u(hk)]" Version="V3" />
-            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[TempMessageTable]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Username'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column1' Name='Message'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataNextLink' /&gt;&#xD;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' /&gt;&lt;/row&gt;&lt;column exact='1' name='Column0' attr='fulltext'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='h2' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column1' attr='fulltext'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="626,157" sap2010:WorkflowViewState.IdRef="NExtractData_2" LimitExtractionTo="Page" MaximumResults="10" ScopeIdentifier="6a9c2bd6-c6af-48b8-9ec1-dca80fbdfced" Version="V3">
-              <uix:NExtractData.NextLink>
-                <uix:TargetAnchorable BrowserURL="https://discord.com/channels/470825093568921610/470825093996609546" CvTextArgument="Next" CvType="Text" DesignTimeRectangle="1128, 1353, 67, 38" DesignTimeScaleFactor="1" ElementType="Button" FriendlyName="'Next'" FullSelectorArgument="&lt;webctrl aaname='Next' tag='BUTTON' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Next' tag='BUTTON' type='button' class='endButton-pLBGXH pageButton-uta6J3 button-ejjZWC lookBlank-FgPMy6 colorTransparent-2SBJ8- sizeMedium-2oH5mg grow-2T4nbg' check:innerText='Next' /&gt;" Guid="afd7c6fe-9ff3-48cb-9c34-ae538f01d5e6" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAEcAAAAqCAYAAADh2kabAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKASURBVGhD7daxSxthGMfx/j8hQ/4Bl4ydMpQbJBQadEg7mA7XQGk7HVICIpbSQEMHJVChQxQJWZpFkBoHUSSldUggotgEUirOvz7PJXfeNZfHcnkLRZ7hC+bevOfdx3vf814imYIWneIIKY6Q4ggpjpDiCCmOkOIIKY6Q4ggpjpDiCCmOkOIIKY7QncKxnz13ixqLU3wcu47O1TV+XfWwbQfHKjjg461K4Ni/L/vwEV0LX8+1MSADONTJBix/zBzOq49tdAb7KEeMRbWy+sYo0Mw4/cGQLmaIvZX0eMwcTrnFN3r41zicSaCZcTqNDTQv6GK6dRTcsUkca7mO4zNGpOODHppvc5jj4+vtAOwSPn3n8X2U0ja2u6Mb9PPPf3umgGbH2bGRKR+iTz8fr2dp7A+cJzV8o8/9o00UF22UGqf0XW+fGoNc7KL0ns/hQaWRyeVRPeIbbKO6mMdCznJBJ65jSiaAjOCE/+phnMJWz73BDw+8ua/R/EHztngefR7j8U30W++Q8c5PxVlWXgzi4fBmHfWd2zKEk8Kcs4tz93M9jLPDOKOLDObNSySzqH7lY/TUrHn71qi4OCZgOGM4iaRFNzPeV7ipT0640b5zifMzmkPLy0nfjK3FwDEFwxnEoQJLZHLPqcF5mkfBqeGgS/sI7znztAQHvJwqyHjna7zw95YRbA8Nh+YVl0JLLiqTMJxZHNpInc+XYRzq/svazdvq5xCdLxU8Tlv0ZPAxeqrmg3MJozheXoS3x29Cmtc/2cSC/3smC/4TaAKGi4/zH8ZvKFMw3J3CMZ3iCCmOkOIIKY6Q4ggpjpDiCCmOkOIIKY6Q4ggpjpDiCCnO1FL4DVGBRiyELcWEAAAAAElFTkSuQmCC" ScopeSelectorArgument="&lt;html app='msedge.exe' title='• Discord | #general | Spice &amp;amp; Wolf' /&gt;" SearchSteps="FuzzySelector, Image, CV" Version="V2" Visibility="Interactive">
-                  <uix:TargetAnchorable.Anchors>
-                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
-                      <uix:Target DesignTimeRectangle="1140, 1364, 29, 16" ElementType="Text" FriendlyName="'Next'" FullSelectorArgument="&lt;webctrl aaname='Next' parentid='app-mount' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Next' parentid='app-mount' tag='SPAN' type='' class='' check:innerText='Next' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAYAAAADU1RxAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHPSURBVEhL7ZO/SwJhGMf7f8TBf6DlxqYb4gZxEhusQRsOl2o6IoQGIRI6GhQhoeGKEJdcBCkbpAijGk64KErBSJq/Pc/dvd5dZiUILg5fuPf59X6e93luIRSOYNaaQwjNIYQ8CLUCc/CJj4GFU9UfpOOK7U3dZ5uufoAg3RahDIOmB7F11IbZu0T+m30EotvrE0gfjV3JDZoeRL7JTbb+hjCrRdReKLhTQdr2jUIo2xXcPDEs2XsWantxLLK90PY1kMLxA/svkZVUnHYYwKdh/Z8gzlTI+Ra69H1TiJHvG8SagXs6d6/LyKyoyFYfKVbskXvxSx3ZA64hgCTI8SRK1wzQRmkliURcscHHQgS7CEKkTyy70OGymxfeQe2N8k44j84uJHfbbe5DFvVJ/x+HDRHBolbHs32uBCHOGMK5xC+RFwrHULpjG71CTuyVo4khQmGFkty5s8a+RFDOXrzi+YlyaCya5Plyk0OQfE87uhMGtPUk0pqBqw7NmXciSqPr8Rh0yKJedWM4e6cBC1WN8jKp4ah+h6CF0s5fgxCkpU3D+zve+zAvdKxKCnXKNnqlqD+XLs24YyHIBv953MRtGQm3ngcxQ80hhOYQjiL4AonBH3HoT901AAAAAElFTkSuQmCC" SearchSteps="FuzzySelector, Image" />
-                    </scg:List>
-                  </uix:TargetAnchorable.Anchors>
-                </uix:TargetAnchorable>
-              </uix:NExtractData.NextLink>
-              <uix:NExtractData.Target>
-                <uix:TargetAnchorable DesignTimeRectangle="827, 200, 386, 2843" DesignTimeScaleFactor="1" ElementType="List" FriendlyName="'UL'" FullSelectorArgument="&lt;webctrl aria-role='group' tag='UL' /&gt;" Guid="4ed9150a-f9bf-4fc8-9bdf-2f8896feeb70" InformativeScreenshot="6378bcb406acf76a67711c9fd5dad9bf.png" ScopeSelectorArgument="&lt;html app='msedge.exe' title='Discord | #general | Spice &amp;amp; Wolf' /&gt;" SearchSteps="Selector" Version="V2" Visibility="Interactive" />
-              </uix:NExtractData.Target>
-            </uix:NExtractData>
-            <ui:FilterDataTable DataTable="[TempMessageTable]" DisplayName="Filter Data Table" FilterRowsMode="Remove" sap:VirtualizedContainerService.HintSize="626,161" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[TempMessageTable]" SelectColumnsMode="Remove">
-              <ui:FilterDataTable.Filters>
-                <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
-                  <ui:FilterOperationArgument Operand="{x:Null}" BooleanOperator="And" Operator="EMPTY">
-                    <ui:FilterOperationArgument.Column>
-                      <InArgument x:TypeArguments="x:String">["Username"]</InArgument>
-                    </ui:FilterOperationArgument.Column>
-                  </ui:FilterOperationArgument>
-                  <ui:FilterOperationArgument Operand="{x:Null}" BooleanOperator="Or" Operator="EMPTY">
-                    <ui:FilterOperationArgument.Column>
-                      <InArgument x:TypeArguments="x:String">["Message"]</InArgument>
-                    </ui:FilterOperationArgument.Column>
-                  </ui:FilterOperationArgument>
-                </scg:List>
-              </ui:FilterDataTable.Filters>
-              <ui:FilterDataTable.SelectColumns>
-                <scg:List x:TypeArguments="InArgument" Capacity="4">
-                  <x:Null />
-                </scg:List>
-              </ui:FilterDataTable.SelectColumns>
-            </ui:FilterDataTable>
+            <ui:BuildDataTable DataTable="[MessageTable]" DisplayName="Build Data Table &quot;MessageTable&quot;" sap:VirtualizedContainerService.HintSize="626,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xD;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xD;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xD;&#xA;      &lt;xs:complexType&gt;&#xD;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xD;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xD;&#xA;            &lt;xs:complexType&gt;&#xD;&#xA;              &lt;xs:sequence&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Username&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Message&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;              &lt;/xs:sequence&gt;&#xD;&#xA;            &lt;/xs:complexType&gt;&#xD;&#xA;          &lt;/xs:element&gt;&#xD;&#xA;        &lt;/xs:choice&gt;&#xD;&#xA;      &lt;/xs:complexType&gt;&#xD;&#xA;    &lt;/xs:element&gt;&#xD;&#xA;  &lt;/xs:schema&gt;&#xD;&#xA;  &lt;TableName /&gt;&#xD;&#xA;&lt;/NewDataSet&gt;" />
+            <ui:InterruptibleWhile CurrentIndex="{x:Null}" DisplayName="While" sap:VirtualizedContainerService.HintSize="626,1526" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
+              <ui:InterruptibleWhile.Body>
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="546,1360" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="sd:DataTable" Name="TempMessageTable">
+                      <Variable.Default>
+                        <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="New System.Data.DataTable" />
+                      </Variable.Default>
+                    </Variable>
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[TempMessageTable]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Username'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column1' Name='Message'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' /&gt;&lt;/row&gt;&lt;column exact='1' name='Column0' attr='fulltext'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='h2' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column1' attr='fulltext'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="484,157" sap2010:WorkflowViewState.IdRef="NExtractData_2" LimitExtractionTo="None" MaximumResults="0" ScopeIdentifier="6a9c2bd6-c6af-48b8-9ec1-dca80fbdfced" Version="V3">
+                    <uix:NExtractData.Target>
+                      <uix:TargetAnchorable BrowserURL="https://discord.com/channels/470825093568921610/470825093996609546" DesignTimeRectangle="827, 200, 386, 2385" DesignTimeScaleFactor="1" ElementType="List" FriendlyName="'UL'" FullSelectorArgument="&lt;webctrl aria-role='group' tag='UL' /&gt;" Guid="881874a0-5c60-4f23-96ee-a2306c8f3d61" InformativeScreenshot="6378bcb406acf76a67711c9fd5dad9bf.png" ScopeSelectorArgument="&lt;html app='msedge.exe' title='Discord | #general | Spice &amp;amp; Wolf' /&gt;" SearchSteps="Selector" Version="V2" Visibility="Interactive" />
+                    </uix:NExtractData.Target>
+                  </uix:NExtractData>
+                  <ui:FilterDataTable DataTable="[TempMessageTable]" DisplayName="Filter Data Table" FilterRowsMode="Remove" sap:VirtualizedContainerService.HintSize="484,161" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[TempMessageTable]" SelectColumnsMode="Remove">
+                    <ui:FilterDataTable.Filters>
+                      <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
+                        <ui:FilterOperationArgument Operand="{x:Null}" BooleanOperator="And" Operator="EMPTY">
+                          <ui:FilterOperationArgument.Column>
+                            <InArgument x:TypeArguments="x:String">["Username"]</InArgument>
+                          </ui:FilterOperationArgument.Column>
+                        </ui:FilterOperationArgument>
+                        <ui:FilterOperationArgument Operand="{x:Null}" BooleanOperator="Or" Operator="EMPTY">
+                          <ui:FilterOperationArgument.Column>
+                            <InArgument x:TypeArguments="x:String">["Message"]</InArgument>
+                          </ui:FilterOperationArgument.Column>
+                        </ui:FilterOperationArgument>
+                      </scg:List>
+                    </ui:FilterDataTable.Filters>
+                    <ui:FilterDataTable.SelectColumns>
+                      <scg:List x:TypeArguments="InArgument" Capacity="4">
+                        <x:Null />
+                      </scg:List>
+                    </ui:FilterDataTable.SelectColumns>
+                  </ui:FilterDataTable>
+                  <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[TempMessageTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="484,412" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+                    <ui:ForEachRow.Body>
+                      <ActivityAction x:TypeArguments="sd:DataRow">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="sd:DataRow" Name="TempRow" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="450,297" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[TempRow.ItemArray]" DataTable="[MessageTable]" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="388,186" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:ForEachRow.Body>
+                  </ui:ForEachRow>
+                  <ui:ClearDataTable DataTable="[TempMessageTable]" DisplayName="Clear Data Table" sap:VirtualizedContainerService.HintSize="484,80" sap2010:WorkflowViewState.IdRef="ClearDataTable_1" />
+                  <Assign sap:VirtualizedContainerService.HintSize="484,82" sap2010:WorkflowViewState.IdRef="Assign_4">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[PageCount]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[PageCount + 1]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Next'" sap:VirtualizedContainerService.HintSize="484,157" sap2010:WorkflowViewState.IdRef="NClick_3" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="6a9c2bd6-c6af-48b8-9ec1-dca80fbdfced" Version="V3">
+                    <uix:NClick.Target>
+                      <uix:TargetAnchorable BrowserURL="https://discord.com/channels/470825093568921610/470825093996609546" CvTextArgument="Next" CvType="Text" DesignTimeRectangle="1128, 1353, 67, 38" DesignTimeScaleFactor="1" ElementType="Button" FriendlyName="'Next'" FullSelectorArgument="&lt;webctrl aaname='Next' tag='BUTTON' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Next' tag='BUTTON' type='button' class='endButton-pLBGXH pageButton-uta6J3 button-ejjZWC lookBlank-FgPMy6 colorTransparent-2SBJ8- sizeMedium-2oH5mg grow-2T4nbg' check:innerText='Next' /&gt;" Guid="82fbdfab-503f-48f4-8a1c-202068ccea02" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAEcAAAAqCAYAAADh2kabAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJ/SURBVGhD7ZZBaxNREMf9PiGHfIFe9ugpiOyhhIDSHKKg8bAGRC+6FAkUqUgDBg8tORQ8pKWEHDSXgtj0IIYSUQ8JpKTUDaRYev47k+wmG5tOy+YJUubwg+ybfbPv/TJvdm/E4gkos1E5AipHQOUIqBwBlSOgcgRUjoDKEVA5AipHQOUIqBwBlSOgcgSulRzn8ZMhs2JRiC7HqaJ9eobfp11sO+FYCfs83iiFxv49qfQdWguv58yYIANyiIMN2OOYKTnPUT7owvt89Twrr14bFTS3HK8/oMUM8GnF8mOm5ETLY1LQ3HLatQ3Uj2gxnSpyw9j5TdnLVTQPWSKN97uov7mLBR5fb4XEPsT7HxzfQ+FFqCp92jvOON9lmBI0vxxadLL4BR79bq6nKPaXnPsVfKdr7+sm8hkHhdpPujfoU76Qo10U3nIOX5RlI53ZRJPz0LylTBbpW0FlXg0TgozImfrXrWk5ua0uLbCFd7eDuS9R/0XztvxK8OXxJrzGGpJB/jmPJwsJ5HCznnXPZRiSk8CCu4ve8Lo6LWeH5YwWGWZyTFIof+MxqprVcHVEl2NCDGNMTixuo9jw+0poU+crZ5pR3zlG75Dm0PFyrSC2FkmOKTGMQTlE6IiMNzXuORW4j7LIuRXsd1ooc89ZpOro83EqIRnkqz0dNutY3MF2h/J0PsClXpV/YE+ecwEmxTBm5cQtuB+Pp+UQN59VJm+rkwHa9O1yj5ru6rDSqKoWw3O7qOVHx8su7qF3wpsdoFnOjvPNIvwRaEIME13Ofwi/oUyJYa6VHNOoHAGVI6ByBFSOgMoRUDkCKkdA5QioHAGVI6ByBFSOgMoRUDkXksAfEd9GG8GwhqMAAAAASUVORK5CYII=" InformativeScreenshot="a1fea3fa6e6ff879e18b7358b4ea2c61.png" ScopeSelectorArgument="&lt;html app='msedge.exe' title='Discord | #general | Spice &amp;amp; Wolf' /&gt;" SearchSteps="FuzzySelector, Image, CV" Version="V2" Visibility="Interactive">
+                        <uix:TargetAnchorable.Anchors>
+                          <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                            <uix:Target CvTextArgument="Next" CvType="Text" DesignTimeRectangle="1140, 1364, 29, 16" ElementType="Text" FriendlyName="'Next'" FullSelectorArgument="&lt;webctrl aaname='Next' parentid='app-mount' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Next' parentid='app-mount' tag='SPAN' type='' class='' check:innerText='Next' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAYAAAADU1RxAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHTSURBVEhL7ZO/SwJhGMf7f+SG/gGXG5sk4oYQh8jBgrLhcKmljgihQQiFpKG4QWi4RMShXIQoGyIRoxo8OFHqBKNo/va83nu/ugwSwcXhC3fP8z7P+3l+vHMhYR7T1gzC1gzClgshl9H+/MLHp4Gi7D2Uxx2z1/Me22T1CwSpeQbJOTQpiF2oTQPmTTBPAMLsDwhkgOtDkR+aFMToPAGIduUM1R4d1stIDn3BYGm/jEaHwZK9b6B6tIIws5+2PAVs4vyZ+W+R3vN0matdkp18QQhyRnL3MOm7cRol3w+IdQ1P9G8+FJCKy0hXXuisvUf84l4N6WOWgwOJEmLxAhosD8WtxhOILdqdHgHhq0L0QyQvDKqkhZMlHiccoPpGcRe8Mg7JqjXrWUTs/P8aB29TWKmhO/wv+yFKDMK6xCu3vVGoj8xGXci41Y4FERIk5Op87p7gYCf8svbiFd0OxdBYFNH2ZceBIHla6wQ7O6FB2UogqWi401tQ2U4sU7V9NoY8Ina+yvZwaUOCjKJOefRLKLRLqQ3JuedvCEGEcvXqhyAt7Gju63gfoE1vf42WLzPsHHVp2RtroJKyxiLlbtF9Z0UN0FATTj4XYoqaQdiaQViaxzd95R9gHVVk+gAAAABJRU5ErkJggg==" SearchSteps="FuzzySelector, Image, CV" />
+                          </scg:List>
+                        </uix:TargetAnchorable.Anchors>
+                      </uix:TargetAnchorable>
+                    </uix:NClick.Target>
+                  </uix:NClick>
+                </Sequence>
+              </ui:InterruptibleWhile.Body>
+              <ui:InterruptibleWhile.Condition>
+                <VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="PageCount &lt; in_NumPages" />
+              </ui:InterruptibleWhile.Condition>
+            </ui:InterruptibleWhile>
             <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" ExistingProcessAction="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" MacroSettings="{x:Null}" ProcessMode="{x:Null}" ShowExcelWindow="{x:Null}" DisplayName="Excel Process Scope" sap:VirtualizedContainerService.HintSize="626,1037" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_1">
               <ueab:ExcelProcessScopeX.Body>
                 <ActivityAction x:TypeArguments="ui:IExcelProcess">
@@ -262,7 +320,7 @@
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
                             <ueab:DeleteRowsX RowPositions="{x:Null}" DeleteRowsOption="Visible" DisplayName="Delete Rows" HasHeaders="True" sap:VirtualizedContainerService.HintSize="434,138" sap2010:WorkflowViewState.IdRef="DeleteRowsX_1" Range="[UserMessagesSheet.Sheet(&quot;Sheet1&quot;)]" />
-                            <ueab:WriteRangeX Destination="[UserMessagesSheet.Sheet(&quot;Sheet1&quot;)]" DisplayName="Write DataTable to Excel" sap:VirtualizedContainerService.HintSize="434,159" sap2010:WorkflowViewState.IdRef="WriteRangeX_1" IgnoreEmptySource="False" Source="[TempMessageTable.AsEnumerable.Reverse.CopyToDataTable]" />
+                            <ueab:WriteRangeX Destination="[UserMessagesSheet.Sheet(&quot;Sheet1&quot;)]" DisplayName="Write DataTable to Excel" sap:VirtualizedContainerService.HintSize="434,159" sap2010:WorkflowViewState.IdRef="WriteRangeX_1" IgnoreEmptySource="False" Source="[MessageTable.AsEnumerable.Reverse.CopyToDataTable]" />
                             <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_2">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="x:String">[out_ExcelPath]</OutArgument>
